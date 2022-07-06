@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import Feed from '../components/Feed'
 import Sidebar from '../components/Sidebar'
+import Widgets from '../components/Widgets'
 
 
-export default function Home() {
+export default function Home({ newsResults,randomUserResults }) {
   return (
     <div >
       <Head>
@@ -12,7 +13,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className='flex min-h-screen max-w-7xl mx-auto'>
+      <main className='flex min-h-screen mx-auto'>
+
         {/* Sidbar */}
         <Sidebar />
 
@@ -20,6 +22,7 @@ export default function Home() {
         <Feed />
 
         {/* Widgets */}
+        <Widgets newsResults={newsResults.articles} randomUserResults={randomUserResults.results} />
 
         {/* Modal */}
 
@@ -27,4 +30,21 @@ export default function Home() {
 
     </div>
   )
+}
+
+export const getServerSideProps = async () => {
+
+  const newsResults = await fetch("https://saurav.tech/NewsAPI/top-headlines/category/business/us.json")
+  .then((res) => res.json());
+
+  // hwo to follo section
+  const randomUserResults = await fetch("https://randomuser.me/api/?results=50&inc=name,login,picture")
+  .then((res)=>res.json());
+
+  return {
+    props: {
+      newsResults,
+      randomUserResults
+    }
+  }
 }
