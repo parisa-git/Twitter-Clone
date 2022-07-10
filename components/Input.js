@@ -1,12 +1,14 @@
 import { EmojiHappyIcon } from '@heroicons/react/outline'
 import { PhotographIcon } from '@heroicons/react/solid'
-import React from 'react'
+
 
 const Input = () => {
+
+
     return (
         <div className='flex border-b border-gray-200 p-3 space-x-3'>
             <img className="w-10 h-10 rounded-full cursor-pointer hover:brightness-95 "
-                src="https://lh3.googleusercontent.com/a-/AFdZucogHTbyi6uYA7NJHct3AjBC_ZcwCGvY2A1Nqq4S=s96-c-rg-br100"
+                // src={session.user.image}
                 alt="user-ime" />
             <div className='w-full gap-2'>
                 <div className=' border-b border-gray-200 '>
