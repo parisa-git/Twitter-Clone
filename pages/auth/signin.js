@@ -2,7 +2,7 @@ import React from "react";
 import { app } from "../../firebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userAuthActions } from "../../store/user-auth";
 
 
@@ -14,17 +14,22 @@ const signin = () => {
     const router = useRouter();
     const firebaseAuth = getAuth(app);
     const provider = new GoogleAuthProvider();
+    // const user = useSelector((state) => state.userAuth.user);
+    // console.log(user);
 
-
-    const onGoogleClick = async () => {
+    const signInHandler = async () => {
         // if (!user) {
+
         const { user: { refreshToken, providerData } } = await signInWithPopup(firebaseAuth, provider);
+
         localStorage.setItem('user', JSON.stringify(providerData[0]));
-        console.log(providerData[0]);
         dispatch(userAuthActions.singinUser(providerData[0]));
+
+
         router.push('/');
         // }
     };
+
 
     return (
 
@@ -45,7 +50,7 @@ const signin = () => {
                         This app is created for learning purposes
                     </p>
                     <button
-                        onClick={onGoogleClick}
+                        onClick={signInHandler}
                         className="bg-red-400 rounded-lg p-3 text-white hover:bg-red-500"
                     >
                         Sign in with Google
