@@ -25,7 +25,6 @@ const signin = () => {
         localStorage.setItem('user', JSON.stringify(providerData[0]));
         dispatch(userAuthActions.singinUser(providerData[0]));
 
-
         router.push('/');
         // }
     };

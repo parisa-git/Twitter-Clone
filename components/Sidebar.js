@@ -20,10 +20,6 @@ const Sidebar = () => {
 
     const dispatch = useDispatch();
 
-    const signinHandler = () => {
-        router.push('/auth/signin');
-    }
-
     const signOutHandler = () => {
 
         dispatch(userAuthActions.signOut(null));
@@ -81,7 +77,7 @@ const Sidebar = () => {
             </> :
                 <>
                     <button
-                        onClick={signinHandler}
+                        onClick={()=>router.push("/auth/signin")}
                         className="bg-blue-400 text-white w-52 h-12 font-bold shadow-xl text-lg hidden xl:inline rounded-full hover:bg-blue-600" >SignIn</button>
                 </>
             }

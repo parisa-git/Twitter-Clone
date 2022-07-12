@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import {fetchUser} from '../utils/fetchLocalStorage';
+import {fetchUser} from '../utils/fetchLocalStorage';
 
-// const userInfo = fetchUser();
+const userInfo = fetchUser();
+
 
 const userAuth = createSlice({
     name: "userAuth",
     initialState: {
-        user: null,
+        user: userInfo,
     },
     reducers: {
         singinUser(state, action) {
