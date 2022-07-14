@@ -39,7 +39,7 @@ const Sidebar = () => {
 
             {/* Menu */}
 
-            <div>
+            <div className="w-full">
                 <SidebarMenuItem text="Home" Icon={HomeIcon} active />
                 <SidebarMenuItem text="Explor" Icon={HashtagIcon} />
                 {user &&

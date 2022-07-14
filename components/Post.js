@@ -1,8 +1,63 @@
 import { ChartBarIcon, ChatIcon, DotsHorizontalIcon, HeartIcon, ShareIcon, TrashIcon } from "@heroicons/react/outline"
+import { collection, deleteDoc, doc, onSnapshot, setDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import Moment from "react-moment"
+import { useSelector } from "react-redux";
+import { db, storage } from "../firebase";
+import { HeartIcon as HeartIconFiled } from "@heroicons/react/solid";
+import { useRouter } from "next/router";
+import { deleteObject, ref } from "firebase/storage";
+
 
 
 const Post = ({ post }) => {
+
+    const user = useSelector((state) => state.userAuth.user);
+    const [likes, setLikes] = useState([]);
+    const [hasLiked, setHasLiked] = useState(false);
+
+    const router = useRouter();
+    console.log(user)
+
+    useEffect(() => {
+
+        const unsubscribe = onSnapshot(collection(db, "posts", post.id, "likes"),
+            (snapshot) => setLikes(snapshot.docs)
+        );
+    }, [db]);
+
+    useEffect(() => {
+
+        setHasLiked(likes.findIndex((like) => like.id === user?.uid) !== -1);
+
+    }, [likes]);
+
+    const likePost = async () => {
+        if (user) {
+            if (hasLiked) {
+                await deleteDoc(doc(db, "posts", post.id, "likes", user?.uid));
+            } else {
+
+                await setDoc(doc(db, "posts", post.id, "likes", user?.uid), {
+                    username: user.displayName.split(" ").join("").toLocaleLowerCase(),
+                })
+            }
+        } else {
+            router.push("/auth/signin")
+        }
+    }
+
+    const deletPost = async () => {
+        if (window.confirm("Are you sure to delet??")) {
+
+            await deleteDoc(doc(db, "posts", post.id));
+            if (post.data().image) {
+
+                deleteObject(ref(storage, `posts/${post.id}/image`));
+            }
+        }
+    }
+
     return (
         <div className="flex p-3 cursor-pointer border-b border-gray-200">
             {/* user image */}
@@ -19,10 +74,10 @@ const Post = ({ post }) => {
                     {/* user info  */}
                     <div className="flex items-center gap-1 whitespace-nowrap">
                         <h4 className="xl:text-lg text-sm font-bold text-gray-700 hover:underline">{post.data().name}</h4>
-                        <span className="text-sm text-gray-500">@{post.data().username} -</span>
+                        <span className="text-sm text-gray-500">{post.data().username} -</span>
                         <span className="text-sm text-gray-500 hover:underline">
                             <Moment fromNow>
-                                {post?.timestamp?.toDate()}
+                                {post?.data().timestamp?.toDate()}
                             </Moment>
                         </span>
                     </div>
@@ -40,8 +95,35 @@ const Post = ({ post }) => {
                 {/* icons  */}
                 <div className="flex justify-between text-gray-500 mt-2 p-2">
                     <ChatIcon className="xl:h-11 h-5 hoverEffect hover:bg-sky-100 hover:text-sky-500" />
-                    <TrashIcon className="xl:h-11 h-5 hoverEffect hover:bg-red-100 hover:text-red-500" />
-                    <HeartIcon className="xl:h-11 h-5 hoverEffect hover:bg-red-100 hover:text-red-500" />
+
+
+                    {user?.uid === post.data().id &&
+                        <>
+                            <TrashIcon onClick={deletPost} className="xl:h-11 h-5 hoverEffect hover:bg-red-100 hover:text-red-500" />
+                        </>
+                    }
+
+                    <div className="flex items-center">
+
+                        {likes.length > 0 &&
+                            <>
+                                <span className={`${hasLiked && "text-red-500"} select-none `}>{likes.length}</span>
+                            </>
+                        }
+
+                        {hasLiked ?
+                            <>
+                                <HeartIconFiled onClick={likePost} className="xl:h-11 h-5 hoverEffect hover:bg-red-100 text-red-500" />
+                            </>
+                            : <>
+                                <HeartIcon onClick={likePost} className="xl:h-11 h-5 hoverEffect hover:bg-red-100 hover:text-red-500" />
+                            </>
+                        }
+
+                    </div>
+
+
+
                     <ShareIcon className="xl:h-11 h-5 hoverEffect hover:bg-sky-100 hover:text-sky-500" />
                     <ChartBarIcon className="xl:h-11 h-5 hoverEffect hover:bg-sky-100 hover:text-sky-500" />
                 </div>

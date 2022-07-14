@@ -30,7 +30,7 @@ const Input = () => {
             userImage: user.photoURL,
             timestamp: serverTimestamp(),
             name: user.displayName,
-            username: user.email,
+            username: user.displayName.split(" ").join("").toLocaleLowerCase(),
         });
 
         const imageRef = ref(storage, `posts/${docRef.id}/image`);
