@@ -2,22 +2,30 @@ import { ChartBarIcon, ChatIcon, DotsHorizontalIcon, HeartIcon, ShareIcon, Trash
 import { collection, deleteDoc, doc, onSnapshot, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import Moment from "react-moment"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { db, storage } from "../firebase";
 import { HeartIcon as HeartIconFiled } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { deleteObject, ref } from "firebase/storage";
+import { CommentPostActions } from "../store/comment";
 
 
 
 const Post = ({ post }) => {
 
     const user = useSelector((state) => state.userAuth.user);
+
+
     const [likes, setLikes] = useState([]);
     const [hasLiked, setHasLiked] = useState(false);
+    const [postId, setPostId] = useState('');
+    console.log(postId);
+
+
+    const dispatch = useDispatch();
 
     const router = useRouter();
-    console.log(user)
+
 
     useEffect(() => {
 
@@ -58,6 +66,17 @@ const Post = ({ post }) => {
         }
     }
 
+
+    const openComments = () => {
+
+        dispatch(CommentPostActions.getPostId(postId));
+        dispatch(CommentPostActions.openComments());
+
+    }
+
+
+
+
     return (
         <div className="flex p-3 cursor-pointer border-b border-gray-200">
             {/* user image */}
@@ -94,7 +113,18 @@ const Post = ({ post }) => {
 
                 {/* icons  */}
                 <div className="flex justify-between text-gray-500 mt-2 p-2">
-                    <ChatIcon className="xl:h-11 h-5 hoverEffect hover:bg-sky-100 hover:text-sky-500" />
+                    {user ?
+                        <div
+                            onClick={openComments}
+                        >
+                            <ChatIcon
+                                onClick={() => setPostId(post.id)}
+                                className="xl:h-11 h-5 hoverEffect hover:bg-sky-100 hover:text-sky-500"
+                            />
+                        </div>
+                        :
+                        router.push("/auth/signin")
+                    }
 
 
                     {user?.uid === post.data().id &&
