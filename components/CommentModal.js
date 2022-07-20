@@ -25,18 +25,32 @@ const CommentModal = () => {
         dispatch(CommentPostActions.closeModal());
     }
 
+
     useEffect(() => {
-        onSnapshot(doc(db, "posts", postId), (snapshot) => {
-            setPost(snapshot);
-        });
-    }, [postId, db]);
+        const fetchData = async () => {
+            onSnapshot(doc(db, "posts", postId), (snapshot) => {
+                setPost(snapshot);
+            });
+        }
+        fetchData();
+    }, [postId]);
+
+    console.log(post)
+    // useEffect(() => {
+
+    //     onSnapshot(doc(db, "posts", postId), (snapshot) => {
+    //         setPost(snapshot);
+    //     });
+
+    // }, [postId, db]);
+
 
     const sendComment = () => {
 
     }
 
     return (
-        <div>CommentModal
+        <div>
             <Modal isOpen={open}
                 onRequestClose={closeModal}
                 className="max-w-lg w-[90%]  absolute top-24 left-[50%] translate-x-[-50%] bg-white border-2 border-gray-200 rounded-xl shadow-md" >
@@ -47,32 +61,34 @@ const CommentModal = () => {
                         </div>
                     </div>
                 </div>
+                {/* {postId && <> */}
+
                 <div className="p-2 flex items-center space-x-1 relative">
                     <span className="w-0.5 h-full z-[-1] absolute left-8 top-11 bg-gray-300" />
                     <img
                         className="h-11 w-11 rounded-full mr-4"
-                        src={post?.data().userImage}
+                        // src={ post && post?.data().userImage}
                         alt="user-img"
                     />
                     <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
-                        {post.data().name}
+                        {/* {post?.data().name} */}
                     </h4>
                     <span className="text-sm sm:text-[15px]">
-                        @{post.data().username} -{" "}
+                        {/* @{post?.data().username} -{" "} */}
                     </span>
                     <span className="text-sm sm:text-[15px] hover:underline">
                         <Moment fromNow>
-                        {post.data().timestamp.toDate()}
+                            {/* {post?.data().timestamp.toDate()} */}
                         </Moment>
                     </span>
                 </div>
                 <p className="text-gray-500 text-[15px] sm:text-[16px] ml-16 mb-2">
-                    {post.data().text}
+                    {/* {post?.data().text} */}
                 </p>
 
                 <div className='flex border-b border-gray-200 p-3 space-x-3'>
                     <img className="w-10 h-10 rounded-full cursor-pointer hover:brightness-95 "
-                        src={user.photoURL}
+                        // src={user.photoURL}
                         alt="user-ime" />
                     <div className='w-full gap-2'>
                         <div className=' border-b border-gray-200 '>
@@ -114,6 +130,7 @@ const CommentModal = () => {
                         </div>
                     </div>
                 </div>
+                {/* </>} */}
 
             </Modal>
         </div>

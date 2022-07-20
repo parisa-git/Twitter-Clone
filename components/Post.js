@@ -18,7 +18,7 @@ const Post = ({ post }) => {
 
     const [likes, setLikes] = useState([]);
     const [hasLiked, setHasLiked] = useState(false);
-    const [postId, setPostId] = useState('');
+    const [postId, setPostId] = useState(post.id);
     console.log(postId);
 
 
@@ -39,6 +39,8 @@ const Post = ({ post }) => {
         setHasLiked(likes.findIndex((like) => like.id === user?.uid) !== -1);
 
     }, [likes]);
+
+  
 
     const likePost = async () => {
         if (user) {
@@ -68,10 +70,8 @@ const Post = ({ post }) => {
 
 
     const openComments = () => {
-
         dispatch(CommentPostActions.getPostId(postId));
         dispatch(CommentPostActions.openComments());
-
     }
 
 
@@ -114,11 +114,11 @@ const Post = ({ post }) => {
                 {/* icons  */}
                 <div className="flex justify-between text-gray-500 mt-2 p-2">
                     {user ?
-                        <div
-                            onClick={openComments}
+                        <div onClick={() => setPostId(post.id)}
+
                         >
                             <ChatIcon
-                                onClick={() => setPostId(post.id)}
+                                onClick={openComments}
                                 className="xl:h-11 h-5 hoverEffect hover:bg-sky-100 hover:text-sky-500"
                             />
                         </div>
