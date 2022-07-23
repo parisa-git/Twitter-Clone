@@ -17,9 +17,10 @@ const Post = ({ post }) => {
 
 
     const [likes, setLikes] = useState([]);
+    const [comments, setComments] = useState([]);
     const [hasLiked, setHasLiked] = useState(false);
     const [postId, setPostId] = useState(post.id);
-    console.log(postId);
+    // console.log(postId);
 
 
     const dispatch = useDispatch();
@@ -32,6 +33,15 @@ const Post = ({ post }) => {
         const unsubscribe = onSnapshot(collection(db, "posts", post.id, "likes"),
             (snapshot) => setLikes(snapshot.docs)
         );
+
+    }, [db]);
+
+    useEffect(() => {
+
+
+        const unsubscribe = onSnapshot(collection(db, "posts", post.id, "comments"),
+            (snapshot) => setComments(snapshot.docs)
+        );
     }, [db]);
 
     useEffect(() => {
@@ -40,7 +50,7 @@ const Post = ({ post }) => {
 
     }, [likes]);
 
-  
+
 
     const likePost = async () => {
         if (user) {
@@ -70,6 +80,8 @@ const Post = ({ post }) => {
 
 
     const openComments = () => {
+
+        // localStorage.setItem("postId", JSON.stringify(postId));
         dispatch(CommentPostActions.getPostId(postId));
         dispatch(CommentPostActions.openComments());
     }
@@ -113,10 +125,16 @@ const Post = ({ post }) => {
 
                 {/* icons  */}
                 <div className="flex justify-between text-gray-500 mt-2 p-2">
+
                     {user ?
-                        <div onClick={() => setPostId(post.id)}
+                        <div className="flex items-center" onClick={() => setPostId(post.id)}
 
                         >
+                            {comments.length > 0 &&
+                                <>
+                                    <span className=" select-none text-sm">{comments.length}</span>
+                                </>
+                            }
                             <ChatIcon
                                 onClick={openComments}
                                 className="xl:h-11 h-5 hoverEffect hover:bg-sky-100 hover:text-sky-500"
@@ -137,7 +155,7 @@ const Post = ({ post }) => {
 
                         {likes.length > 0 &&
                             <>
-                                <span className={`${hasLiked && "text-red-500"} select-none `}>{likes.length}</span>
+                                <span className={`${hasLiked && "text-red-500"} select-none text-sm`}>{likes.length}</span>
                             </>
                         }
 
@@ -158,7 +176,7 @@ const Post = ({ post }) => {
                     <ChartBarIcon className="xl:h-11 h-5 hoverEffect hover:bg-sky-100 hover:text-sky-500" />
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

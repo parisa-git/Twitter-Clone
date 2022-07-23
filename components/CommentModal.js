@@ -1,23 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Modal from 'react-modal/lib/components/Modal';
+import Modal from "react-modal";
 import { useDispatch, useSelector } from 'react-redux';
 import { CommentPostActions } from '../store/comment';
 import { EmojiHappyIcon, PhotographIcon, XIcon } from '@heroicons/react/outline'
 import { db } from '../firebase';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { addDoc, collection, doc, onSnapshot, query, serverTimestamp } from 'firebase/firestore';
 import Moment from 'react-moment';
+import { useRouter } from 'next/router';
 
 const CommentModal = () => {
 
     const user = useSelector((state) => state.userAuth.user);
     const open = useSelector((state) => state.Comment.open);
     const postId = useSelector((state) => state.Comment.postIds);
+    const currentUser = useSelector((state)=>state.Comment.currentUser);
 
     const [post, setPost] = useState({});
     const [input, setInput] = useState();
     const [selectedFile, setSelectedFile] = useState(null);
 
     const filePickerRef = useRef(null);
+    const router = useRouter();
 
     const dispatch = useDispatch();
 
@@ -28,33 +31,50 @@ const CommentModal = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            // onSnapshot(
+            //     query(collection(db, "posts", postId), (snapshot) => {
+            //         setPost(snapshot)
+            //     })
+            // )
+
             onSnapshot(doc(db, "posts", postId), (snapshot) => {
                 setPost(snapshot);
             });
+
         }
+
         fetchData();
-    }, [postId]);
+
+
+    }, [postId, db]);
+
+
 
     console.log(post)
-    // useEffect(() => {
-
-    //     onSnapshot(doc(db, "posts", postId), (snapshot) => {
-    //         setPost(snapshot);
-    //     });
-
-    // }, [postId, db]);
 
 
-    const sendComment = () => {
+    const sendComment = async () => {
+        await addDoc(collection(db, "posts", postId, "comments"), {
+            comment: input,
+            name: user.displayName,
+            username: user.displayName.split(" ").join("").toLocaleLowerCase(),
+            userImg: user.photoURL,
+            timestamp: serverTimestamp(),
+            userId: user.uid,
+        });
 
+        closeModal();
+        setInput("");
+        // router.push(`/posts/${postId}`);
     }
 
     return (
         <div>
             <Modal isOpen={open}
                 onRequestClose={closeModal}
-                className="max-w-lg w-[90%]  absolute top-24 left-[50%] translate-x-[-50%] bg-white border-2 border-gray-200 rounded-xl shadow-md" >
+                className="moooodal max-w-lg w-[90%]  absolute top-24 left-[50%] translate-x-[-50%] bg-white border-2 border-gray-200 rounded-xl shadow-md" >
                 <div className="p-1">
+                    {postId}
                     <div className="border-b border-gray-200 py-2 px-1.5">
                         <div onClick={closeModal} className="hoverEffect w-10 h-10 flex items-center justify-center">
                             <XIcon className="h-[23px] text-gray-700 p-0" />
@@ -67,23 +87,23 @@ const CommentModal = () => {
                     <span className="w-0.5 h-full z-[-1] absolute left-8 top-11 bg-gray-300" />
                     <img
                         className="h-11 w-11 rounded-full mr-4"
-                        // src={ post && post?.data().userImage}
+                        // src={ post && post?.data()?.userImage}
                         alt="user-img"
                     />
                     <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
-                        {/* {post?.data().name} */}
+                        {/* {post?.data()?.name} */}
                     </h4>
                     <span className="text-sm sm:text-[15px]">
-                        {/* @{post?.data().username} -{" "} */}
+                        {/* @{post?.data()?.username} -{" "} */}
                     </span>
                     <span className="text-sm sm:text-[15px] hover:underline">
                         <Moment fromNow>
-                            {/* {post?.data().timestamp.toDate()} */}
+                            {/* {post?.data()?.timestamp.toDate()} */}
                         </Moment>
                     </span>
                 </div>
                 <p className="text-gray-500 text-[15px] sm:text-[16px] ml-16 mb-2">
-                    {/* {post?.data().text} */}
+                    {/* {post?.data()?.text} */}
                 </p>
 
                 <div className='flex border-b border-gray-200 p-3 space-x-3'>
@@ -94,7 +114,7 @@ const CommentModal = () => {
                         <div className=' border-b border-gray-200 '>
                             <textarea className='w-full border-none focus:ring-0 text-lg
                                 placeholder-gray-700 min-h-[50px] text-gray-700 tracking-wide' rows="2"
-                                placeholder="What's happening?"
+                                placeholder="Tweet your reply..."
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                             >
@@ -124,7 +144,7 @@ const CommentModal = () => {
                             <button
                                 onClick={sendComment}
                                 disabled={!input}
-                                className=' bg-blue-400 text-white w-24 px-4 py-2 font-bold rounded-full hover:brightness-95 disabled:opacity-50' >Tweet</button>
+                                className=' bg-blue-400 text-white w-24 px-4 py-2 font-bold rounded-full hover:brightness-95 disabled:opacity-50' >Reply</button>
 
 
                         </div>

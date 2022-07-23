@@ -1,19 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchPostId } from "../utils/fetchLocalStorage";
+
+// const postInfo = fetchPostId();
 
 const Comment = createSlice({
     name: "Comment",
     initialState: {
         open: false,
-        postIds: "",
+        postIds: '',
+        currentUser:''
     },
     reducers: {
         openComments(state) {
             state.open = true
         },
-        closeModal(state){
+        closeModal(state) {
             state.open = false
         },
-        getPostId(state,action){
+        getPostId(state, action) {
             state.postIds = action.payload
         }
 
