@@ -11,7 +11,7 @@ import { CommentPostActions } from "../store/comment";
 
 
 
-const Post = ({ post }) => {
+const Post = ({id,post }) => {
 
     const user = useSelector((state) => state.userAuth.user);
 
@@ -19,7 +19,7 @@ const Post = ({ post }) => {
     const [likes, setLikes] = useState([]);
     const [comments, setComments] = useState([]);
     const [hasLiked, setHasLiked] = useState(false);
-    const [postId, setPostId] = useState(post.id);
+    const [postId, setPostId] = useState(id);
     // console.log(postId);
 
 
@@ -30,7 +30,7 @@ const Post = ({ post }) => {
 
     useEffect(() => {
 
-        const unsubscribe = onSnapshot(collection(db, "posts", post.id, "likes"),
+        const unsubscribe = onSnapshot(collection(db, "posts", id, "likes"),
             (snapshot) => setLikes(snapshot.docs)
         );
 
@@ -39,7 +39,7 @@ const Post = ({ post }) => {
     useEffect(() => {
 
 
-        const unsubscribe = onSnapshot(collection(db, "posts", post.id, "comments"),
+        const unsubscribe = onSnapshot(collection(db, "posts", id, "comments"),
             (snapshot) => setComments(snapshot.docs)
         );
     }, [db]);
@@ -55,10 +55,10 @@ const Post = ({ post }) => {
     const likePost = async () => {
         if (user) {
             if (hasLiked) {
-                await deleteDoc(doc(db, "posts", post.id, "likes", user?.uid));
+                await deleteDoc(doc(db, "posts", id, "likes", user?.uid));
             } else {
 
-                await setDoc(doc(db, "posts", post.id, "likes", user?.uid), {
+                await setDoc(doc(db, "posts", id, "likes", user?.uid), {
                     username: user.displayName.split(" ").join("").toLocaleLowerCase(),
                 })
             }
@@ -70,11 +70,12 @@ const Post = ({ post }) => {
     const deletPost = async () => {
         if (window.confirm("Are you sure to delet??")) {
 
-            await deleteDoc(doc(db, "posts", post.id));
+            await deleteDoc(doc(db, "posts",id));
             if (post.data().image) {
 
-                deleteObject(ref(storage, `posts/${post.id}/image`));
+                deleteObject(ref(storage, `posts/${id}/image`));
             }
+            router.push('/');
         }
     }
 
@@ -93,7 +94,7 @@ const Post = ({ post }) => {
         <div className="flex p-3 cursor-pointer border-b border-gray-200">
             {/* user image */}
             <img className="w-10 h-10 rounded-full cursor-pointer hover:brightness-95 mr-4"
-                src={post.data().userImage}
+                src={post?.data().userImage}
                 alt="user-img"
             />
 
@@ -104,8 +105,8 @@ const Post = ({ post }) => {
                 <div className="flex justify-between items-center">
                     {/* user info  */}
                     <div className="flex items-center gap-1 whitespace-nowrap">
-                        <h4 className="xl:text-lg text-sm font-bold text-gray-700 hover:underline">{post.data().name}</h4>
-                        <span className="text-sm text-gray-500">{post.data().username} -</span>
+                        <h4 className="xl:text-lg text-sm font-bold text-gray-700 hover:underline">{post?.data().name}</h4>
+                        <span className="text-sm text-gray-500">{post?.data().username} -</span>
                         <span className="text-sm text-gray-500 hover:underline">
                             <Moment fromNow>
                                 {post?.data().timestamp?.toDate()}
@@ -118,16 +119,16 @@ const Post = ({ post }) => {
                 </div>
 
                 {/* post text */}
-                <p className="text-gray-700 text-lg sm:text-sm mb-2">{post.data().text}</p>
+                <p className="text-gray-700 text-lg sm:text-sm mb-2">{post?.data().text}</p>
 
                 {/* post img  */}
-                <img className="rounded-2xl mr-2 w-full  h-auto" src={post.data().image} />
+                <img className="rounded-2xl mr-2 w-full  h-auto" src={post?.data().image} />
 
                 {/* icons  */}
                 <div className="flex justify-between text-gray-500 mt-2 p-2">
 
                     {user ?
-                        <div className="flex items-center" onClick={() => setPostId(post.id)}
+                        <div className="flex items-center" onClick={() => setPostId(id)}
 
                         >
                             {comments.length > 0 &&
@@ -145,7 +146,7 @@ const Post = ({ post }) => {
                     }
 
 
-                    {user?.uid === post.data().id &&
+                    {user?.uid === post?.data().id &&
                         <>
                             <TrashIcon onClick={deletPost} className="xl:h-11 h-5 hoverEffect hover:bg-red-100 hover:text-red-500" />
                         </>

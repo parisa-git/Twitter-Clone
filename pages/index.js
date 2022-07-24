@@ -31,7 +31,7 @@ export default function Home({ newsResults, randomUserResults }) {
         <Widgets newsResults={newsResults.articles} randomUserResults={randomUserResults.results} />
 
         {/* Modal */}
-        {/* {postId && open && <CommentModal postId={postId} />} */}
+        
         <CommentModal />
 
       </main>

@@ -8,7 +8,7 @@ const Comment = createSlice({
     initialState: {
         open: false,
         postIds: '',
-        currentUser:''
+
     },
     reducers: {
         openComments(state) {

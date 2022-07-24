@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CommentPostActions } from '../store/comment';
 import { EmojiHappyIcon, PhotographIcon, XIcon } from '@heroicons/react/outline'
 import { db } from '../firebase';
-import { addDoc, collection, doc, onSnapshot, query, serverTimestamp } from 'firebase/firestore';
+import { addDoc, collection, doc, onSnapshot, serverTimestamp } from 'firebase/firestore';
 import Moment from 'react-moment';
 import { useRouter } from 'next/router';
 
@@ -13,7 +13,7 @@ const CommentModal = () => {
     const user = useSelector((state) => state.userAuth.user);
     const open = useSelector((state) => state.Comment.open);
     const postId = useSelector((state) => state.Comment.postIds);
-    const currentUser = useSelector((state)=>state.Comment.currentUser);
+
 
     const [post, setPost] = useState({});
     const [input, setInput] = useState();
@@ -65,7 +65,7 @@ const CommentModal = () => {
 
         closeModal();
         setInput("");
-        // router.push(`/posts/${postId}`);
+        router.push(`/posts/${postId}`);
     }
 
     return (
