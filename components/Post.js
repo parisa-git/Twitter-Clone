@@ -119,10 +119,10 @@ const Post = ({id,post }) => {
                 </div>
 
                 {/* post text */}
-                <p className="text-gray-700 text-lg sm:text-sm mb-2">{post?.data().text}</p>
+                <p onClick={()=>router.push(`/posts/${id}`)} className="text-gray-700 text-lg sm:text-sm mb-2">{post?.data().text}</p>
 
                 {/* post img  */}
-                <img className="rounded-2xl mr-2 w-full  h-auto" src={post?.data().image} />
+                <img onClick={()=>router.push(`/posts/${id}`)} className="rounded-2xl mr-2 w-full  h-auto" src={post?.data().image} />
 
                 {/* icons  */}
                 <div className="flex justify-between text-gray-500 mt-2 p-2">

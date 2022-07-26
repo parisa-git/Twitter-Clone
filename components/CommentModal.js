@@ -31,11 +31,6 @@ const CommentModal = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            // onSnapshot(
-            //     query(collection(db, "posts", postId), (snapshot) => {
-            //         setPost(snapshot)
-            //     })
-            // )
 
             onSnapshot(doc(db, "posts", postId), (snapshot) => {
                 setPost(snapshot);
@@ -46,7 +41,7 @@ const CommentModal = () => {
         fetchData();
 
 
-    }, [postId, db]);
+    }, []);
 
 
 
@@ -55,6 +50,7 @@ const CommentModal = () => {
 
     const sendComment = async () => {
         await addDoc(collection(db, "posts", postId, "comments"), {
+        
             comment: input,
             name: user.displayName,
             username: user.displayName.split(" ").join("").toLocaleLowerCase(),

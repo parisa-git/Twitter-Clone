@@ -1,5 +1,6 @@
 import { ArrowLeftIcon } from '@heroicons/react/outline'
 import { collection, doc, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { AnimatePresence, motion } from 'framer-motion'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -15,14 +16,14 @@ import { db } from '../../firebase'
 export default function PostPage({ newsResults, randomUserResults }) {
 
     const [post, setPost] = useState();
-    const [comments, setComments] = useState();
+    const [comments, setComments] = useState([]);
 
-    const postId = useSelector((state) => state.Comment.postIds);
-    const open = useSelector((state) => state.Comment.open);
+    // const postId = useSelector((state) => state.Comment.postIds);
+    // const open = useSelector((state) => state.Comment.open);
 
     const router = useRouter();
     const { id } = router.query;
-
+    console.log(id)
 
     // get post data
 
@@ -34,15 +35,15 @@ export default function PostPage({ newsResults, randomUserResults }) {
 
 
     //get comments of post 
+
     useEffect(() => {
-        onSnapshot(
-            query(
-                collection(db, "posts", id, "comments"),
-                orderBy("timestamp", "desc")
-            ),
+        onSnapshot(query(collection(db, "posts", id, "comments"), orderBy("timestamp", "desc")),
             (snapshot) => setComments(snapshot.docs)
         );
-    }, [db, id]);
+    }, []);
+
+    console.log(comments)
+
 
     return (
         <div >
@@ -68,20 +69,30 @@ export default function PostPage({ newsResults, randomUserResults }) {
                         </h2>
                     </div>
                     <Post id={id} post={post} />
+                    {/* {comments.length > 0 && ( */}
+                    <div className="">
+                        <AnimatePresence >
+                            {comments.map((comment) => (
 
-
-                    <div>
-                        {
-                            comments.map((comment) => (
-                                <Comments
+                                <motion.div
                                     key={comment.id}
-                                    commentId={comment.id}
-                                    originalPostId={id}
-                                    comment={comment.data()}
-                                />
-                            ))
-                        }
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 1 }}
+                                >
+                                    <Comments
+                                        key={comment.id}
+                                        commentId={comment.id}
+                                        originalPostId={id}
+                                        comment={comment.data()}
+                                    />
+                                </motion.div>
+
+                            ))}
+                        </AnimatePresence>
                     </div>
+                    {/* )} */}
 
                 </div>
 
