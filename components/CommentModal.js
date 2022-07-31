@@ -32,7 +32,7 @@ const CommentModal = () => {
     useEffect(() => {
         const fetchData = async () => {
 
-            onSnapshot(doc(db, "posts", postId), (snapshot) => {
+        onSnapshot(doc(db, "posts", postId), (snapshot) => {
                 setPost(snapshot);
             });
 
@@ -70,7 +70,7 @@ const CommentModal = () => {
                 onRequestClose={closeModal}
                 className="moooodal max-w-lg w-[90%]  absolute top-24 left-[50%] translate-x-[-50%] bg-white border-2 border-gray-200 rounded-xl shadow-md" >
                 <div className="p-1">
-                    {postId}
+                    
                     <div className="border-b border-gray-200 py-2 px-1.5">
                         <div onClick={closeModal} className="hoverEffect w-10 h-10 flex items-center justify-center">
                             <XIcon className="h-[23px] text-gray-700 p-0" />
@@ -126,16 +126,16 @@ const CommentModal = () => {
 
 
                             <div className='flex'>
-                                <div onClick={() => filePickerRef.current.click()}>
-                                    <PhotographIcon className='h-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100' />
+                                {/* <div onClick={() => filePickerRef.current.click()}> */}
+                                    {/* <PhotographIcon className='h-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100' /> */}
                                     {/* <input 
                                     type='file' hidden 
                                     ref={filePickerRef} 
                                     onChange={addImageToPost} 
                                     /> */}
-                                </div>
+                                {/* </div> */}
 
-                                <EmojiHappyIcon className='h-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100' />
+                                {/* <EmojiHappyIcon className='h-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100' /> */}
                             </div>
                             <button
                                 onClick={sendComment}

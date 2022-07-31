@@ -9,23 +9,24 @@ const Widgets = ({ newsResults, randomUserResults }) => {
     const [randomUserNum, setRandomUserNum] = useState(3);
 
     return (
-        <div className='xl:w-[768px] hidden lg:inline ml-8 space-y-5'>
-            <div className='w-[70%] xl:w-[75%] sticky top-0 bg-white py-1.5 z-50 '>
+        <div className="xl:w-[600px] hidden lg:inline ml-8 space-y-5">
+            <div className="w-[90%] xl:w-[75%] sticky top-0 bg-white py-1.5 z-50 sm:w-[50%] lg:w-[70%]">
                 <div className='flex items-center rounded-full p-3 relative'>
                     <SearchIcon className='h-5 z-50 border-gray-500 text-gray-500 ' />
-                    <input className='absolute inset-0 rounded-full pl-11 focus:shadow-lg focus:bg-withe bg-gray-100' type="text" placeholder='search twitter' />
+                    <input 
+                    className="absolute inset-0 rounded-full pl-11 border-gray-500 text-gray-700 focus:shadow-lg focus:bg-white bg-gray-100 " type="text" placeholder='search twitter' />
                 </div>
             </div>
             {/* What's happening */}
             <div className='text-gray-700 bg-gray-100 rounded-xl pt-2 w-[70%] xl:w-[75%] space-y-3 '>
-                <h4 className='font-bold px-4 text-lg'>What's happening</h4>
+                <h4 className='font-bold px-4 text-lg'>Whats happening</h4>
                 <AnimatePresence>
 
                     {newsResults.slice(0, articleNum).map((article) => (
                         <motion.div key={article.title}
                             initial={{ opacity: 0 }}
-                            animate={{ opacity:1 }}
-                            exit={{ opacity:0 }}>
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}>
                             <News key={article.title} article={article} />
                         </motion.div>
                     ))}
@@ -41,8 +42,8 @@ const Widgets = ({ newsResults, randomUserResults }) => {
 
                         <motion.div key={randomUser.login.username}
                             initial={{ opacity: 0 }}
-                            animate={{ opacity:1 }}
-                            exit={{ opacity:0 }}>
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}>
                             <div key={randomUser.login.username} className='flex items-center px-4 py-2  cursor-pointer hover:bg-gray-200 transition duration-500 ease-out'>
                                 <img className='rounded-full' width="40" src={randomUser.picture.thumbnail} />
                                 <div className='truncate ml-4 leading-5'>

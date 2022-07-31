@@ -2,7 +2,7 @@ import React from 'react'
 
 const News = ({article}) => {
     return (
-        <a href={article.url} target="_blank">
+        <a rel='noreferrer' href={article.url} target="_blank">
             <div className='flex justify-between items-center px-4 py-2 space-x-1 hover:bg-gray-200 transition duration-500 ease-out'>
                 <div className='space-y-0.5'>
                     <h6 className='font-bold text-sm'>{article.title}</h6>

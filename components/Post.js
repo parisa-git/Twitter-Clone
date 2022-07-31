@@ -91,9 +91,9 @@ const Post = ({id,post }) => {
 
 
     return (
-        <div className="flex p-3 cursor-pointer border-b border-gray-200">
+        <div className="xl:flex lg:flex  p-3 cursor-pointer border-b border-gray-200">
             {/* user image */}
-            <img className="w-10 h-10 rounded-full cursor-pointer hover:brightness-95 mr-4"
+            <img className="w-10 h-10 mb-3 rounded-full cursor-pointer hover:brightness-95 mr-4"
                 src={post?.data().userImage}
                 alt="user-img"
             />
@@ -104,7 +104,7 @@ const Post = ({id,post }) => {
 
                 <div className="flex justify-between items-center">
                     {/* user info  */}
-                    <div className="flex items-center gap-1 whitespace-nowrap">
+                    <div className="flex items-center gap-1 xl:whitespace-nowrap ">
                         <h4 className="xl:text-lg text-sm font-bold text-gray-700 hover:underline">{post?.data().name}</h4>
                         <span className="text-sm text-gray-500">{post?.data().username} -</span>
                         <span className="text-sm text-gray-500 hover:underline">
