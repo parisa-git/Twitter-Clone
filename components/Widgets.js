@@ -9,8 +9,8 @@ const Widgets = ({ newsResults, randomUserResults }) => {
     const [randomUserNum, setRandomUserNum] = useState(3);
 
     return (
-        <div className="xl:w-[600px] hidden lg:inline ml-8 space-y-5">
-            <div className="w-[90%] xl:w-[75%] sticky top-0 bg-white py-1.5 z-50 sm:w-[50%] lg:w-[70%]">
+        <div className="xl:w-[600px] hidden lg:inline ml-8 space-y-5 ">
+            <div className="w-[90%] xl:w-[85%] sticky top-0 bg-white py-1.5 z-50  lg:w-[90%]">
                 <div className='flex items-center rounded-full p-3 relative'>
                     <SearchIcon className='h-5 z-50 border-gray-500 text-gray-500 ' />
                     <input 
@@ -18,7 +18,7 @@ const Widgets = ({ newsResults, randomUserResults }) => {
                 </div>
             </div>
             {/* What's happening */}
-            <div className='text-gray-700 bg-gray-100 rounded-xl pt-2 w-[70%] xl:w-[75%] space-y-3 '>
+            <div className='text-gray-700 bg-gray-100 rounded-xl pt-2 w-[80%] xl:w-[85%] space-y-3 lg:w-[90%] '>
                 <h4 className='font-bold px-4 text-lg'>Whats happening</h4>
                 <AnimatePresence>
 
@@ -35,7 +35,7 @@ const Widgets = ({ newsResults, randomUserResults }) => {
                 <button onClick={() => setArticleNum(articleNum + 3)} className='text-blue-300 hover:text-blue-500 pl-4 pb-3'>Show more</button>
             </div>
             {/* who to  follow */}
-            <div className='text-gray-700 bg-gray-100 rounded-xl pt-2 w-[70%] xl:w-[75%] space-y-3 sticky top-16'>
+            <div className='text-gray-700 bg-gray-100 rounded-xl pt-2 w-[80%] xl:w-[85%]  lg:w-[90%] space-y-3 sticky top-16'>
                 <h4 className='font-bold px-4 text-lg'>Who to  follow </h4>
                 <AnimatePresence>
                     {randomUserResults.slice(0, randomUserNum).map((randomUser) => (

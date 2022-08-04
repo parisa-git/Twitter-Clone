@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {fetchUser} from '../utils/fetchLocalStorage';
+import { useEffect } from "react";
+// import dynamic from "next/dynamic";
+import { fetchUser } from '../utils/fetchLocalStorage';
+
+
 
 const userInfo = fetchUser();
 

@@ -8,6 +8,7 @@ import { HeartIcon as HeartIconFiled } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { deleteObject, ref } from "firebase/storage";
 import { CommentPostActions } from "../store/comment";
+import Widgets from "./Widgets";
 
 
 
@@ -170,9 +171,12 @@ const Comments = ({ comment, commentId, originalPostId }) => {
                     <ShareIcon className="xl:h-11 h-5 hoverEffect hover:bg-sky-100 hover:text-sky-500" />
                     <ChartBarIcon className="xl:h-11 h-5 hoverEffect hover:bg-sky-100 hover:text-sky-500" />
                 </div>
+
+                <Widgets />
             </div>
         </div>
     )
 }
 
 export default Comments
+

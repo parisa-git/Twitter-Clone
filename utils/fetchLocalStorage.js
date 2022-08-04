@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+
+
 export const fetchUser = () => {
     if (typeof window !== 'undefined') {
         const userInfo = localStorage.getItem('user') !== 'undifined' ?

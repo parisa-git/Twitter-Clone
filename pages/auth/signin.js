@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { app } from "../../firebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useRouter } from "next/router";
@@ -22,8 +22,9 @@ const signin = () => {
         // if (!user) {
 
         const { user: { refreshToken, providerData } } = await signInWithPopup(firebaseAuth, provider);
-
+        
         localStorage.setItem('user', JSON.stringify(providerData[0]));
+
         dispatch(userAuthActions.singinUser(providerData[0]));
 
         router.push('/');
@@ -53,7 +54,7 @@ const signin = () => {
                         onClick={signInHandler}
                         className="bg-red-400 rounded-lg p-3 text-white hover:bg-red-500"
                     >
-                    
+
                         Sign in with Google
                     </button>
                 </div>

@@ -104,7 +104,7 @@ const Post = ({id,post }) => {
 
                 <div className="flex justify-between items-center">
                     {/* user info  */}
-                    <div className="flex items-center gap-1 xl:whitespace-nowrap ">
+                    <div className="flex items-center gap-1 xl:whitespace-nowrap truncate ">
                         <h4 className="xl:text-lg text-sm font-bold text-gray-700 hover:underline">{post?.data().name}</h4>
                         <span className="text-sm text-gray-500">{post?.data().username} -</span>
                         <span className="text-sm text-gray-500 hover:underline">
