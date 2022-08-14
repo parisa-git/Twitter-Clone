@@ -23,7 +23,7 @@ export default function PostPage({ newsResults, randomUserResults }) {
 
     const router = useRouter();
     const { id } = router.query;
-    console.log(id)
+    // console.log(id)
 
     // get post data
 
@@ -42,7 +42,7 @@ export default function PostPage({ newsResults, randomUserResults }) {
         );
     }, []);
 
-    console.log(comments)
+    // console.log(comments)
 
 
     return (

@@ -20,7 +20,7 @@ const Feed = () => {
             ),
         []
     );
-    console.log(posts)
+    // console.log(posts)
 
     return (
         <div className="xl:ml-[300px] lg:ml-[125px] sm:ml-[200px] max-w-xl border-l border-r border-gray-200  xl:min-w-[600px] lg:min-w-[550px] sm:ml-[73px] flex-grow  sm:min-w-[470px]">

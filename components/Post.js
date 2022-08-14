@@ -177,7 +177,8 @@ const Post = ({id,post }) => {
                     <ChartBarIcon className="xl:h-11 h-5 hoverEffect hover:bg-sky-100 hover:text-sky-500" />
                 </div>
             </div>
-        </div >
+          
+        </div>
     )
 }
 

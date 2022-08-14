@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPostId } from "../utils/fetchLocalStorage";
+// import { fetchPostId } from "../utils/fetchLocalStorage";
 
 // const postInfo = fetchPostId();
 
