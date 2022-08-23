@@ -23,7 +23,6 @@ const Comment = createSlice({
 
     }
 })
-
 export const CommentPostActions = Comment.actions;
 
 export default Comment;

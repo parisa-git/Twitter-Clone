@@ -15,15 +15,15 @@ import { userAuthActions } from "../store/user-auth"
 const Sidebar = () => {
 
     const user = useSelector((state) => state.userAuth.user);
+    const toggle = useSelector((state) => state.userAuth.logOutModal);
 
     const router = useRouter();
 
     const dispatch = useDispatch();
 
-    const signOutHandler = () => {
+    const openLogout = () => {
 
-        dispatch(userAuthActions.signOut(null));
-        localStorage.clear();
+        dispatch(userAuthActions.toggle());
     }
 
     return (
@@ -62,7 +62,7 @@ const Sidebar = () => {
 
                 {/* Mini-Profile */}
                 <div
-                    onClick={signOutHandler}
+
                     className="hoverEffect gap-2 text-gray-700 flex items-center justify-center xl:justify-start mt-auto">
                     <img
                         src={user.photoURL}
@@ -72,12 +72,12 @@ const Sidebar = () => {
                         <h4 className="font-bold">{user.displayName}</h4>
                         <p className="text-gray-500 text-sm">{user.email}</p>
                     </div>
-                    <DotsHorizontalIcon className="h-5 hidden xl:inline " />
+                    <DotsHorizontalIcon onClick={openLogout} className="h-5 hidden xl:inline " />
                 </div>
             </> :
                 <>
                     <button
-                        onClick={()=>router.push("/auth/signin")}
+                        onClick={() => router.push("/auth/signin")}
                         className="bg-blue-400 text-white w-52 h-12 font-bold shadow-xl text-lg hidden xl:inline rounded-full hover:bg-blue-600" >SignIn</button>
                 </>
             }

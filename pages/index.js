@@ -1,17 +1,13 @@
 import Head from 'next/head'
-import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import CommentModal from '../components/CommentModal'
 import Feed from '../components/Feed'
+import LogoutModal from '../components/LogoutModal'
 import Sidebar from '../components/Sidebar'
 import Widgets from '../components/Widgets'
 
 
 export default function Home({ newsResults, randomUserResults }) {
-
-  const postId = useSelector((state) => state.Comment.postIds);
-  const open = useSelector((state) => state.Comment.open);
-
 
 
   return (
@@ -36,6 +32,8 @@ export default function Home({ newsResults, randomUserResults }) {
         {/* Modal */}
 
         <CommentModal />
+
+        <LogoutModal />
 
       </main>
 
