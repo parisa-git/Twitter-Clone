@@ -12,7 +12,7 @@ const userAuth = createSlice({
     name: "userAuth",
     initialState: {
         user: userInfo,
-        logOutModal:false,
+        logOutModal: false,
     },
     reducers: {
         singinUser(state, action) {
@@ -21,8 +21,11 @@ const userAuth = createSlice({
         signOut(state) {
             state.user = null;
         },
-        toggle(state){
+        toggle(state) {
             state.logOutModal = !state.logOutModal
+        },
+        closeModal(state) {
+            state.logOutModal = false
         }
     },
 
