@@ -1,6 +1,6 @@
 
 
-const SidebarMenuItem = ({ text, Icon,active }) => {
+const SidebarMenuItem = ({ text, Icon,active}) => {
     return (
         <div className="hoverEffect flex items-center justify-center xl:justify-start text-lg gap-3 text-gray-700 ">
             <Icon className="h-7" />

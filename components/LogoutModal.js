@@ -30,7 +30,7 @@ const LogoutModal = () => {
                     className="w-[20%]  
                         absolute bottom-20 left-[10%] translate-x-[-40%] 
                         bg-white border-2 border-gray-200 rounded-xl shadow-md p-3" >
-                    <div className="w-full gap-5 text-gray-700 flex items-center justify-center  mt-auto border-b border-gray-200 ">
+                    <div className="w-full gap-5 pb-4 text-gray-700 flex items-center justify-center  mt-auto border-b border-gray-200 ">
                         <img
                             src={user?.photoURL}
                             alt="user-ime"

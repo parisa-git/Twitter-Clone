@@ -23,7 +23,7 @@ const Feed = () => {
     console.log(posts)
 
     return (
-        <div className="xl:ml-[300px] lg:ml-[125px] max-w-xl border-l border-r border-gray-200  xl:min-w-[600px] lg:min-w-[550px] sm:ml-[73px] flex-grow  sm:min-w-[470px]">
+        <div className="xl:ml-[300px] lg:ml-[125px] ml-[60px] border-l border-r border-gray-200  xl:min-w-[600px] lg:min-w-[550px] sm:ml-[180px] flex-grow  sm:min-w-[470px]">
             <div className='flex sticky py-2 px-3 bg-white top-0 z-50 border-b border-gray-200'>
                 <h2 className='cursor-pointer text-lg sm:text-xl  font-bold'>Home</h2>
                 <div className='hoverEffect flex items-center justify-center px-0 ml-auto w-9 h-9'>

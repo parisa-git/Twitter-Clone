@@ -59,7 +59,7 @@ export default function PostPage({ newsResults, randomUserResults }) {
                 <Sidebar />
 
                 {/* Feed */}
-                <div className="xl:ml-[370px] border-l border-r border-gray-200  xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl">
+                <div className="xl:ml-[300px] lg:ml-[125px] max-w-xl border-l border-r border-gray-200  xl:min-w-[600px] lg:min-w-[550px] sm:ml-[180px] flex-grow  sm:min-w-[470px]">
                     <div className="flex items-center space-x-2  py-2 px-3 sticky top-0 z-50 bg-white border-b border-gray-200">
                         <div className="hoverEffect" onClick={() => router.push("/")}>
                             <ArrowLeftIcon className="h-5 " />
