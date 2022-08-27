@@ -48,7 +48,7 @@ const profile = ({ newsResults, randomUserResults }) => {
                         </div>
                         <div className='flex items-center justify-between px-3 pt-3 relative'>
                             <div className='rounded-full w-40 absolute bottom-[-77px] left-[25px]'>
-                                <img className="xl:w-32 xl:h-32 sm:w-24 sm:w-24 rounded-full border-4 border-white m-3" src={user?.photoURL} />
+                                <img className="xl:w-32 xl:h-32 sm:w-24 rounded-full border-4 border-white m-3" src={user?.photoURL} />
                             </div>
 
 

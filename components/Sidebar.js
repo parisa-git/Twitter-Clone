@@ -11,9 +11,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { useRouter } from "next/router"
 import { userAuthActions } from "../store/user-auth"
 import Avatar from './Img/avatar.png';
+import Link from "next/link"
 
 
-const Sidebar = () => {
+const Sidebar = ({ active }) => {
 
     const user = useSelector((state) => state.userAuth.user);
     const toggle = useSelector((state) => state.userAuth.logOutModal);
@@ -47,16 +48,60 @@ const Sidebar = () => {
             {/* Menu */}
 
             <div className="w-full">
-                <SidebarMenuItem text="Home" Icon={HomeIcon} active />
-                <SidebarMenuItem text="Explor" Icon={HashtagIcon} />
+                <div className="hoverEffect flex items-center justify-center xl:justify-start text-lg gap-3 text-gray-700 ">
+                    <HomeIcon className="h-7" />
+                    <Link href=""><span className={`${active && "font-bold"} hidden xl:inline`}>Home</span></Link>
+                </div>
+                <div className="hoverEffect flex items-center justify-center xl:justify-start text-lg gap-3 text-gray-700 ">
+                    <HashtagIcon className="h-7" />
+                    <Link href=""><span className={`${active && "font-bold"} hidden xl:inline`}>Explor</span></Link>
+                </div>
+                {/* <SidebarMenuItem text="Home" Icon={HomeIcon} />
+                <SidebarMenuItem text="Explor" Icon={HashtagIcon} /> */}
                 {user &&
                     <>
-                        <SidebarMenuItem text="Notifications" Icon={BellIcon} />
-                        <SidebarMenuItem text="Message" Icon={InboxIcon} />
-                        <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} />
-                        <SidebarMenuItem text="Lists" Icon={ClipboardIcon} />
-                        <SidebarMenuItem text="Profile" Icon={UserIcon} />
-                        <SidebarMenuItem text="More" Icon={DotsCircleHorizontalIcon} />
+                        <div className="hoverEffect flex items-center justify-center xl:justify-start text-lg gap-3 text-gray-700 ">
+                            <BellIcon className="h-7" />
+                            <Link href="">
+                                <span className={`${active && "font-bold"} hidden xl:inline`}>Notifications</span>
+                            </Link>
+                        </div>
+                        <div className="hoverEffect flex items-center justify-center xl:justify-start text-lg gap-3 text-gray-700 ">
+                            <InboxIcon className="h-7" />
+                            <Link href="">
+                                <span className={`${active && "font-bold"} hidden xl:inline`}>Message</span>
+                            </Link>
+                        </div>
+                        <div className="hoverEffect flex items-center justify-center xl:justify-start text-lg gap-3 text-gray-700 ">
+                            <BookmarkIcon className="h-7" />
+                            <Link href="">
+                                <span className={`${active && "font-bold"} hidden xl:inline`}>Bookmarks</span>
+                            </Link>
+                        </div>
+                        <div className="hoverEffect flex items-center justify-center xl:justify-start text-lg gap-3 text-gray-700 ">
+                            <ClipboardIcon className="h-7" />
+                            <Link href="">
+                                <span className={`${active && "font-bold"} hidden xl:inline`}>Lists</span>
+                            </Link>
+                        </div>
+                        <div className="hoverEffect flex items-center justify-center xl:justify-start text-lg gap-3 text-gray-700 ">
+                            <UserIcon className="h-7" />
+                            <Link href="/profile/profile">
+                                <span className={`${active && "font-bold"} hidden xl:inline`}>Profile</span>
+                            </Link>
+                        </div>
+                        <div className="hoverEffect flex items-center justify-center xl:justify-start text-lg gap-3 text-gray-700 ">
+                            <DotsCircleHorizontalIcon className="h-7" />
+                            <Link href="">
+                                <span className={`${active && "font-bold"} hidden xl:inline`}>More</span>
+                            </Link>
+                        </div>
+                        {/* <SidebarMenuItem text="Notifications" Icon={BellIcon} /> */}
+                        {/* <SidebarMenuItem text="Message" Icon={InboxIcon} /> */}
+                        {/* <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} /> */}
+                        {/* <SidebarMenuItem text="Lists" Icon={ClipboardIcon} /> */}
+                        {/* <SidebarMenuItem text="Profile" Icon={UserIcon} link="profile/profile" /> */}
+                        {/* <SidebarMenuItem text="More" Icon={DotsCircleHorizontalIcon} /> */}
                     </>
                 }
 
@@ -75,7 +120,7 @@ const Sidebar = () => {
                     <img
                         src={user ? user.photoURL : Avatar}
                         alt="user-ime"
-                        className="w-10 h-10 rounded-full" onClick={signOutHandler}/>
+                        className="w-10 h-10 rounded-full" onClick={signOutHandler} />
                     <div className="hidden xl:inline">
                         <h4 className="font-bold">{user.displayName}</h4>
                         <p className="text-gray-500 text-sm">{user.email}</p>
