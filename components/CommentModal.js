@@ -30,7 +30,7 @@ const CommentModal = () => {
     useEffect(() => {
         const fetchData = async () => {
 
-            await onSnapshot(doc(db, "posts", postId), (snapshot) => {
+            onSnapshot(doc(db, "posts", postId), (snapshot) => {
                 setPost(snapshot);
             });
             // const post = post.data();

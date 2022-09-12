@@ -7,13 +7,21 @@ import { getStorage } from 'firebase/storage';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// const firebaseConfig = {
+//     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+//     authDomain: "twitter-d776a.firebaseapp.com",
+//     projectId: "twitter-d776a",
+//     storageBucket: "twitter-d776a.appspot.com",
+//     messagingSenderId: "494315494984",
+//     appId: "1:494315494984:web:9bd6aed8f010265200c27d"
+// };
 const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: "twitter-d776a.firebaseapp.com",
-    projectId: "twitter-d776a",
-    storageBucket: "twitter-d776a.appspot.com",
-    messagingSenderId: "494315494984",
-    appId: "1:494315494984:web:9bd6aed8f010265200c27d"
+  apiKey:  process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: "twitter-clone-758c9.firebaseapp.com",
+  projectId: "twitter-clone-758c9",
+  storageBucket: "twitter-clone-758c9.appspot.com",
+  messagingSenderId: "175078809388",
+  appId: "1:175078809388:web:e20b1d3859b72ad38fd689"
 };
 
 // Initialize Firebase

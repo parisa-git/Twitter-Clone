@@ -13,7 +13,10 @@ import Widgets from '../../components/Widgets'
 import { db } from '../../firebase'
 
 
-export default function PostPage({ newsResults, randomUserResults }) {
+export default function PostPage(
+    // { newsResults, randomUserResults }
+    )
+     {
 
     const [post, setPost] = useState();
     const [comments, setComments] = useState([]);
@@ -98,7 +101,7 @@ export default function PostPage({ newsResults, randomUserResults }) {
 
 
                 {/* Widgets */}
-                <Widgets newsResults={newsResults.articles} randomUserResults={randomUserResults.results} />
+                {/* <Widgets newsResults={newsResults.articles} randomUserResults={randomUserResults.results} /> */}
 
                 {/* Modal */}
 
@@ -110,19 +113,19 @@ export default function PostPage({ newsResults, randomUserResults }) {
     )
 }
 
-export const getServerSideProps = async () => {
+// export const getServerSideProps = async () => {
 
-    const newsResults = await fetch("https://saurav.tech/NewsAPI/top-headlines/category/business/us.json")
-        .then((res) => res.json());
+//     const newsResults = await fetch("https://saurav.tech/NewsAPI/top-headlines/category/business/us.json")
+//         .then((res) => res.json());
 
-    // hwo to follo section
-    const randomUserResults = await fetch("https://randomuser.me/api/?results=50&inc=name,login,picture")
-        .then((res) => res.json());
+//     // hwo to follo section
+//     const randomUserResults = await fetch("https://randomuser.me/api/?results=50&inc=name,login,picture")
+//         .then((res) => res.json());
 
-    return {
-        props: {
-            newsResults,
-            randomUserResults
-        }
-    }
-}
+//     return {
+//         props: {
+//             newsResults,
+//             randomUserResults
+//         }
+//     }
+// }
